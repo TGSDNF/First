@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.demo.mapper.UserInfoMapper">
+	
+	<!-- 定义sql片段 -->
+	<sql id="userinfo_column">
+		id,name ,age ,address
+	</sql>
+	
+	<!-- 定义sql片段where条件   null 是引用数据类型的默认值-->
+	<sql id="userinfo_where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+			<if test="age != null">
+				and age = #{age}
+			</if>
+			<if test="address != null and address != ''">
+				and address like '%${address}%'
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 按照条件查询所有 -->
+	<select id="queryUserList" parameterType="userinfo" resultType="userInfo">
+		select <include refid="userinfo_column"></include> from userinfo
+		<include refid="userinfo_where"></include>
+	</select>
+	
+	
+	<!-- <insert id="addUser" parameterType="userinfo">
+		insert into userinfo (name,age,address )
+		values (#{name} ,#{age},#{address})	
+	</insert> -->
+	
+	<!-- 添加 -->
+	<insert id="addUser" parameterType="userinfo">
+		insert into userinfo (name,age,address )
+		values (#{name,jdbcType=VARCHAR} ,#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR}  )	
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="delUser" parameterType="userinfo">
+		delete from userinfo <include refid="userinfo_where"></include>
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="updUser" parameterType="userinfo">
+		update userinfo 
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name } ,
+			</if>
+			<if test="age != null ">
+				age = #{age } ,
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address } ,
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+</mapper>
