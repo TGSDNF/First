@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
+//sss
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,15 +33,15 @@ public class UserController {
 		 PageHelper.startPage(pn, 5);
 	        List<UserInfo> uis = userInfoService.queryList(ui);
 	       
-	        //½«ÓÃ»§ĞÅÏ¢·ÅÈëPageInfo¶ÔÏóÀï
+	        //å°†ç”¨æˆ·ä¿¡æ¯æ”¾å…¥PageInfoå¯¹è±¡é‡Œ
 	        PageInfo<UserInfo> page = new PageInfo<UserInfo>(uis);
 	        model.addAttribute("pageInfo", page);
 	        return "show";
 	}
 		
 	/**
-	 * Èç¹ûĞèÒª°Ñ¶ÔÏó×ª»»³É json¸ñÊ½µÄ×Ö·û´®£¬ÄÇÃ´Ê×ÏÈĞèÒªµÄÊÇ
-	 * jackson   jar°ü 
+	 * å¦‚æœéœ€è¦æŠŠå¯¹è±¡è½¬æ¢æˆ jsonæ ¼å¼çš„å­—ç¬¦ä¸²ï¼Œé‚£ä¹ˆé¦–å…ˆéœ€è¦çš„æ˜¯
+	 * jackson   jaråŒ… 
 	 * jackson-core   
 	 * jackson-databind 
 	 * jackson-annotations
@@ -49,7 +49,7 @@ public class UserController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("del")
-	@ResponseBody//µ±×÷json¸ñÊ½µÄ×Ö·û´®·µ»ØÈ¥     {ÊôĞÔÃû : ÊôĞÔÖµ,ÊôĞÔÃû : ÊôĞÔÖµ}
+	@ResponseBody//å½“ä½œjsonæ ¼å¼çš„å­—ç¬¦ä¸²è¿”å›å»     {å±æ€§å : å±æ€§å€¼,å±æ€§å : å±æ€§å€¼}
 	public Map<String , Object> delete(UserInfo ui) throws Exception{
 	    userInfoService.delUser(ui);	
 		Map<String, Object> map = new HashMap<>() ;
